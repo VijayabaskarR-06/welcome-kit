@@ -10,15 +10,15 @@ Open the live site and these files: `src/App.tsx`, `src/content.ts`, `src/lib/mi
 
 ## Run of show
 
-| Time | Show | Explain or ask |
-| --- | --- | --- |
-| 0–3 min | Hero and drag interaction | The visual metaphor and the optional nature of WebGL. |
-| 3–7 min | Three phase tabs and missions | Why content lives in one typed data file. |
-| 7–12 min | Mark one mission complete and reload | Follow the event into `toggleMission`, progress counts, and localStorage. Ask what is lost when browser data is cleared. |
-| 12–17 min | Change phase while watching the orbit | Follow the prop, ref, render loop, and color interpolation. Explain cleanup and reduced motion. |
-| 17–20 min | Filter and open a resource; write a note | Show native dialog behavior and device-local notes. |
-| 20–23 min | Welcome Wave Ask and Code Tour | Ask for the relevant functions and inspect the citations. Distinguish indexed code from a recorded explanation. |
-| 23–25 min | First issue | Agree on one small change, how to test it, and who will review it. |
+| Time      | Show                                     | Explain or ask                                                                                                           |
+| --------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 0–3 min   | Hero and drag interaction                | The visual metaphor and the optional nature of WebGL.                                                                    |
+| 3–7 min   | Three phase tabs and missions            | Why content lives in one typed data file.                                                                                |
+| 7–12 min  | Mark one mission complete and reload     | Follow the event into `toggleMission`, progress counts, and localStorage. Ask what is lost when browser data is cleared. |
+| 12–17 min | Change phase while watching the orbit    | Follow the prop, ref, render loop, and color interpolation. Explain cleanup and reduced motion.                          |
+| 17–20 min | Filter and open a resource; write a note | Show native dialog behavior and device-local notes.                                                                      |
+| 20–23 min | Welcome Wave Ask and Code Tour           | Ask for the relevant functions and inspect the citations. Distinguish indexed code from a recorded explanation.          |
+| 23–25 min | First issue                              | Agree on one small change, how to test it, and who will review it.                                                       |
 
 ## Prompt the newcomer
 

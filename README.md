@@ -19,6 +19,7 @@ Open the URL Vite prints. To check a change:
 ```bash
 pnpm test
 pnpm build
+pnpm format:check
 pnpm preview
 ```
 
@@ -45,15 +46,15 @@ Welcome Wave's repository connection is read-only. The kit's local mission ticks
 
 ## Repository map
 
-| Path | Role |
-| --- | --- |
-| `src/App.tsx` | Page narrative, phase selection, missions, toolkit, notes |
-| `src/content.ts` | The three phases, nine missions, six resources |
-| `src/lib/mission.ts` | Progress rules and localStorage boundary |
-| `src/scene/OrbitalCanvas.tsx` | Three.js scene, interaction, motion, cleanup |
-| `src/styles.css` | Visual system, responsive layout, reduced motion |
-| `tests/mission.test.ts` | State and storage behavior checks |
-| `docs/` | Architecture, onboarding, and KT session guides |
+| Path                          | Role                                                      |
+| ----------------------------- | --------------------------------------------------------- |
+| `src/App.tsx`                 | Page narrative, phase selection, missions, toolkit, notes |
+| `src/content.ts`              | The three phases, nine missions, six resources            |
+| `src/lib/mission.ts`          | Progress rules and localStorage boundary                  |
+| `src/scene/OrbitalCanvas.tsx` | Three.js scene, interaction, motion, cleanup              |
+| `src/styles.css`              | Visual system, responsive layout, reduced motion          |
+| `tests/mission.test.ts`       | State and storage behavior checks                         |
+| `docs/`                       | Architecture, onboarding, and KT session guides           |
 
 Read [Architecture](docs/ARCHITECTURE.md) for the data flow and [Contributing](CONTRIBUTING.md) for a first change.
 

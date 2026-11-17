@@ -6,7 +6,11 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import type { PhaseId } from "../content";
 
-const COLORS: Record<PhaseId, number> = { arrive: 0xa9f0d1, connect: 0xb9a8ff, create: 0xffa88d };
+const COLORS: Record<PhaseId, number> = {
+  arrive: 0xa9f0d1,
+  connect: 0xb9a8ff,
+  create: 0xffa88d,
+};
 
 /**
  * A small procedural scene: no model download, tracking script, or GPU-only content.
@@ -17,7 +21,9 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
   const activePhase = useRef(phase);
   const [available, setAvailable] = useState(true);
 
-  useEffect(() => { activePhase.current = phase; }, [phase]);
+  useEffect(() => {
+    activePhase.current = phase;
+  }, [phase]);
 
   useEffect(() => {
     const host = mount.current;
@@ -25,7 +31,11 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        powerPreference: "high-performance",
+      });
     } catch {
       setAvailable(false);
       return;
@@ -54,25 +64,60 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
 
     const shell = new THREE.Mesh(
       new THREE.IcosahedronGeometry(2.1, 3),
-      new THREE.MeshPhysicalMaterial({ color: 0x49698a, metalness: 0.72, roughness: 0.15, transmission: 0.18, thickness: 1.8, transparent: true, opacity: 0.72, flatShading: true, side: THREE.DoubleSide }),
+      new THREE.MeshPhysicalMaterial({
+        color: 0x49698a,
+        metalness: 0.72,
+        roughness: 0.15,
+        transmission: 0.18,
+        thickness: 1.8,
+        transparent: true,
+        opacity: 0.72,
+        flatShading: true,
+        side: THREE.DoubleSide,
+      }),
     );
     orbit.add(shell);
 
-    const coreMaterial = new THREE.MeshStandardMaterial({ color: COLORS.arrive, emissive: COLORS.arrive, emissiveIntensity: 2.1, metalness: 0.2, roughness: 0.35 });
-    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.14, 2), coreMaterial);
+    const coreMaterial = new THREE.MeshStandardMaterial({
+      color: COLORS.arrive,
+      emissive: COLORS.arrive,
+      emissiveIntensity: 2.1,
+      metalness: 0.2,
+      roughness: 0.35,
+    });
+    const core = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(1.14, 2),
+      coreMaterial,
+    );
     orbit.add(core);
 
     const cage = new THREE.LineSegments(
       new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(2.11, 2)),
-      new THREE.LineBasicMaterial({ color: 0xc9e7ff, transparent: true, opacity: 0.34 }),
+      new THREE.LineBasicMaterial({
+        color: 0xc9e7ff,
+        transparent: true,
+        opacity: 0.34,
+      }),
     );
     orbit.add(cage);
 
-    const ringMaterials = [0x93f5d5, 0xbbb0ff, 0xffb39d].map((color) => new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8 }));
+    const ringMaterials = [0x93f5d5, 0xbbb0ff, 0xffb39d].map(
+      (color) =>
+        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8 }),
+    );
     const rings = [
-      new THREE.Mesh(new THREE.TorusGeometry(3.12, 0.022, 10, 160), ringMaterials[0]),
-      new THREE.Mesh(new THREE.TorusGeometry(3.58, 0.014, 8, 160), ringMaterials[1]),
-      new THREE.Mesh(new THREE.TorusGeometry(2.73, 0.012, 8, 160), ringMaterials[2]),
+      new THREE.Mesh(
+        new THREE.TorusGeometry(3.12, 0.022, 10, 160),
+        ringMaterials[0],
+      ),
+      new THREE.Mesh(
+        new THREE.TorusGeometry(3.58, 0.014, 8, 160),
+        ringMaterials[1],
+      ),
+      new THREE.Mesh(
+        new THREE.TorusGeometry(2.73, 0.012, 8, 160),
+        ringMaterials[2],
+      ),
     ];
     rings[0].rotation.set(0.4, 0.5, 0.35);
     rings[1].rotation.set(-0.55, 0.2, -0.4);
@@ -84,7 +129,10 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
       [-2.8, -1.9, 1, 0.105, 0xc2b7ff],
       [1.1, -3.1, 0.2, 0.085, 0xffb299],
     ].map(([x, y, z, radius, color]) => {
-      const orb = new THREE.Mesh(new THREE.SphereGeometry(radius, 16, 16), new THREE.MeshBasicMaterial({ color }));
+      const orb = new THREE.Mesh(
+        new THREE.SphereGeometry(radius, 16, 16),
+        new THREE.MeshBasicMaterial({ color }),
+      );
       orb.position.set(x, y, z);
       orbit.add(orb);
       return orb;
@@ -92,7 +140,10 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
 
     // Fixed-seed constellation keeps every reload visually stable.
     let seed = 43821;
-    const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const random = () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
     const positions = new Float32Array(180 * 3);
     for (let i = 0; i < positions.length; i += 3) {
       positions[i] = (random() - 0.5) * 14;
@@ -100,8 +151,20 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
       positions[i + 2] = -2 - random() * 7;
     }
     const starGeometry = new THREE.BufferGeometry();
-    starGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xd3e0ff, size: 0.024, sizeAttenuation: true, transparent: true, opacity: 0.78 }));
+    starGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positions, 3),
+    );
+    const stars = new THREE.Points(
+      starGeometry,
+      new THREE.PointsMaterial({
+        color: 0xd3e0ff,
+        size: 0.024,
+        sizeAttenuation: true,
+        transparent: true,
+        opacity: 0.78,
+      }),
+    );
     scene.add(stars);
 
     const composer = new EffectComposer(renderer);
@@ -125,10 +188,17 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
 
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reduced = media.matches;
-    const motionChange = () => { reduced = media.matches; };
+    const motionChange = () => {
+      reduced = media.matches;
+    };
     media.addEventListener("change", motionChange);
     let visible = true;
-    const visibility = new IntersectionObserver((entries) => { visible = entries[0]?.isIntersecting ?? true; }, { threshold: 0.01 });
+    const visibility = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0]?.isIntersecting ?? true;
+      },
+      { threshold: 0.01 },
+    );
     visibility.observe(host);
 
     let dragging = false;
@@ -136,7 +206,12 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
     let lastY = 0;
     let spinX = 0.08;
     let spinY = 0;
-    const down = (event: PointerEvent) => { dragging = true; lastX = event.clientX; lastY = event.clientY; renderer.domElement.setPointerCapture(event.pointerId); };
+    const down = (event: PointerEvent) => {
+      dragging = true;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      renderer.domElement.setPointerCapture(event.pointerId);
+    };
     const move = (event: PointerEvent) => {
       if (!dragging) return;
       spinY += (event.clientX - lastX) * 0.006;
@@ -144,7 +219,9 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
       lastX = event.clientX;
       lastY = event.clientY;
     };
-    const up = () => { dragging = false; };
+    const up = () => {
+      dragging = false;
+    };
     renderer.domElement.addEventListener("pointerdown", down);
     renderer.domElement.addEventListener("pointermove", move);
     renderer.domElement.addEventListener("pointerup", up);
@@ -162,7 +239,9 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
       if (!reduced) {
         core.rotation.y = time * 0.12;
         shell.rotation.y = -time * 0.04;
-        satellites.forEach((satellite, index) => { satellite.scale.setScalar(1 + Math.sin(time * 1.8 + index) * 0.09); });
+        satellites.forEach((satellite, index) => {
+          satellite.scale.setScalar(1 + Math.sin(time * 1.8 + index) * 0.09);
+        });
       }
       const target = new THREE.Color(COLORS[activePhase.current]);
       coreMaterial.color.lerp(target, 0.035);
@@ -182,9 +261,15 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
       visibility.disconnect();
       media.removeEventListener("change", motionChange);
       scene.traverse((object) => {
-        if (object instanceof THREE.Mesh || object instanceof THREE.LineSegments || object instanceof THREE.Points) {
+        if (
+          object instanceof THREE.Mesh ||
+          object instanceof THREE.LineSegments ||
+          object instanceof THREE.Points
+        ) {
           object.geometry.dispose();
-          const materials = Array.isArray(object.material) ? object.material : [object.material];
+          const materials = Array.isArray(object.material)
+            ? object.material
+            : [object.material];
           materials.forEach((material) => material.dispose());
         }
       });
@@ -194,9 +279,26 @@ export default function OrbitalCanvas({ phase }: { phase: PhaseId }) {
     };
   }, []);
 
-  return <div className="orbital-stage" ref={mount} aria-label="Interactive 3D orbit sculpture">
-    {!available && <div className="orbital-fallback" aria-hidden="true"><span /><span /><span /><i /></div>}
-    <div className="orbit-caption orbit-caption-top" aria-hidden="true"><span className="pulse-dot" /> YOUR JOURNEY IS LIVE</div>
-    <div className="orbit-caption orbit-caption-bottom" aria-hidden="true">DRAG TO EXPLORE <span>↗</span></div>
-  </div>;
+  return (
+    <div
+      className="orbital-stage"
+      ref={mount}
+      aria-label="Interactive 3D orbit sculpture"
+    >
+      {!available && (
+        <div className="orbital-fallback" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <i />
+        </div>
+      )}
+      <div className="orbit-caption orbit-caption-top" aria-hidden="true">
+        <span className="pulse-dot" /> YOUR JOURNEY IS LIVE
+      </div>
+      <div className="orbit-caption orbit-caption-bottom" aria-hidden="true">
+        DRAG TO EXPLORE <span>↗</span>
+      </div>
+    </div>
+  );
 }
