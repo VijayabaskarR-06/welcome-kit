@@ -57,6 +57,7 @@ Welcome Wave's repository connection is read-only. The kit's local mission ticks
 | `docs/`                       | Architecture, onboarding, and KT session guides           |
 
 Read [Architecture](docs/ARCHITECTURE.md) for the data flow and [Contributing](CONTRIBUTING.md) for a first change.
+For a recorded judge walkthrough of the kit with Welcome Wave, use the [four-minute video plan](docs/VIDEO_DEMO.md).
 
 ## Deployment
 
